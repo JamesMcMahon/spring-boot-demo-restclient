@@ -1,1 +1,6 @@
 services:
+  httpbin:
+    image: kennethreitz/httpbin:latest   # latest httpbin image on Docker Hub
+    restart: unless-stopped
+    ports:
+      - "8081:80"                        # host-port 8081 → container port 80
