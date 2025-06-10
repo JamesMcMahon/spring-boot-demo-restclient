@@ -1,5 +1,6 @@
 - The goal of this codebase is to be a demo of the differences between RestClient and RestTemplate. Focus on
   straightforward, well-documented code. Avoid complexity not related to the main demo topic.
+- Focus on RestClient and RestTemplate best practices, search for reference documentation if needed.
 - Prefer terse comments that focus on the why of what we are doing. Focus on the Spring ecosystem and how it works. When
   appropriate, link to external documentation.
 - Use English for comments
