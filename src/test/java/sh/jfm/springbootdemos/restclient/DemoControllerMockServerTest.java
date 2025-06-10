@@ -57,8 +57,8 @@ class DemoControllerMockServerTest {
     @TestConfiguration
     static class TestConfig {
         @Bean
-        @Qualifier("restClientDemoService")
-        public DemoAdaptor restClientDemoService(
+        @Qualifier("restClientDemoAdaptor")
+        public DemoAdaptor restClientDemoAdaptor(
                 @Qualifier("restClientHttpbinClient") HttpBinClient client,
                 @Value("${wiremock.server.baseUrl}") String baseUrl
         ) {
@@ -66,8 +66,8 @@ class DemoControllerMockServerTest {
         }
 
         @Bean
-        @Qualifier("restTemplateDemoService")
-        public DemoAdaptor restTemplateDemoService(
+        @Qualifier("restTemplateDemoAdaptor")
+        public DemoAdaptor restTemplateDemoAdaptor(
                 @Qualifier("restTemplateHttpbinClient") HttpBinClient client,
                 @Value("${wiremock.server.baseUrl}") String baseUrl
         ) {

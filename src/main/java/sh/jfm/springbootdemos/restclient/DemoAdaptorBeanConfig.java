@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Configuration;
 public class DemoAdaptorBeanConfig {
 
     @Bean
-    @Qualifier("restClientDemoService")
-    public DemoAdaptor restClientDemoService(
+    @Qualifier("restClientDemoAdaptor")
+    public DemoAdaptor restClientDemoAdaptor(
             @Qualifier("restClientHttpbinClient") HttpBinClient client,
             @Value("${httpbin.base-url}") String baseUrl
     ) {
@@ -18,8 +18,8 @@ public class DemoAdaptorBeanConfig {
     }
 
     @Bean
-    @Qualifier("restTemplateDemoService")
-    public DemoAdaptor restTemplateDemoService(
+    @Qualifier("restTemplateDemoAdaptor")
+    public DemoAdaptor restTemplateDemoAdaptor(
             @Qualifier("restTemplateHttpbinClient") HttpBinClient client,
             @Value("${httpbin.base-url}") String baseUrl
     ) {

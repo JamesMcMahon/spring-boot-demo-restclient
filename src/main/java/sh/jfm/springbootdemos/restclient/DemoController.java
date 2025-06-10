@@ -12,8 +12,8 @@ public class DemoController {
     private final DemoAdaptor restTemplateDemoAdaptor;
 
     public DemoController(
-            @Qualifier("restClientDemoService") DemoAdaptor restClientDemoAdaptor,
-            @Qualifier("restTemplateDemoService") DemoAdaptor restTemplateDemoAdaptor
+            @Qualifier("restClientDemoAdaptor") DemoAdaptor restClientDemoAdaptor,
+            @Qualifier("restTemplateDemoAdaptor") DemoAdaptor restTemplateDemoAdaptor
     ) {
         this.restClientDemoAdaptor = restClientDemoAdaptor;
         this.restTemplateDemoAdaptor = restTemplateDemoAdaptor;
