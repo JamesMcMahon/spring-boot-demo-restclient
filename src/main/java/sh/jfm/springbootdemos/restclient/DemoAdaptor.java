@@ -21,4 +21,12 @@ public class DemoAdaptor {
         String responseName = client.getHello(uri).args().name();
         return "Hello %s!".formatted(responseName);
     }
+
+    public String getError() {
+        URI uri = UriComponentsBuilder.fromUriString(baseUrl + "/status/500")
+                .build(true)
+                .toUri();
+        client.getError(uri);
+        return "Error Handled!";
+    }
 }

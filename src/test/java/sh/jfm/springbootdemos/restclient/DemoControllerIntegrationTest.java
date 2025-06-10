@@ -15,7 +15,7 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.Matchers.equalTo;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Testcontainers
@@ -58,7 +58,7 @@ class DemoControllerIntegrationTest {
                 .get("/restTemplate/hello")
                 .then()
                 .statusCode(HttpStatus.OK.value())
-                .body(containsString("Hello RestTemplate!"));
+                .body(equalTo("Hello RestTemplate!"));
     }
 
     @Test
@@ -69,6 +69,26 @@ class DemoControllerIntegrationTest {
                 .get("/restClient/hello")
                 .then()
                 .statusCode(HttpStatus.OK.value())
-                .body(containsString("Hello RestClient!"));
+                .body(equalTo("Hello RestClient!"));
+    }
+
+    @Test
+    void getError_restTemplate_returnsHandled() {
+        given()
+                .when()
+                .get("/restTemplate/error")
+                .then()
+                .statusCode(HttpStatus.OK.value())
+                .body(equalTo("Error Handled!"));
+    }
+
+    @Test
+    void getError_restClient_returnsHandled() {
+        given()
+                .when()
+                .get("/restClient/error")
+                .then()
+                .statusCode(HttpStatus.OK.value())
+                .body(equalTo("Error Handled!"));
     }
 }

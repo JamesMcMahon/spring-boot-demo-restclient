@@ -2,6 +2,7 @@ package sh.jfm.springbootdemos.restclient;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
+import org.springframework.web.client.RestClientResponseException;
 
 import java.net.URI;
 
@@ -20,5 +21,29 @@ public class RestClientHttpBinClient implements HttpBinClient {
                 .uri(uri)
                 .retrieve()
                 .body(HttpBinGetResponse.class);
+    }
+
+    @Override
+    public void getError(URI uri) {
+        restClient.get()
+                .uri(uri)
+                .retrieve()
+                .onStatus(status -> status.value() == 500,
+                        (_, _) -> {
+                            // Do nothing for 500 errors - allow them to pass through without throwing an exception
+                        })
+                .onStatus(status -> status.value() != 500,
+                        (_, response) -> {
+                            // All other status codes are unexpected for this error scenario should throw an exception
+                            throw new RestClientResponseException(
+                                    "Unexpected status code",
+                                    response.getStatusCode().value(),
+                                    response.getStatusText(),
+                                    response.getHeaders(),
+                                    null,
+                                    null
+                            );
+                        })
+                .toBodilessEntity();
     }
 }

@@ -28,4 +28,14 @@ public class DemoController {
     public String getHelloRestTemplate(@RequestParam String name) {
         return restTemplateDemoAdaptor.getHello(name);
     }
+
+    @GetMapping("/restClient/error")
+    public String getErrorRestClient() {
+        return restClientDemoAdaptor.getError();
+    }
+
+    @GetMapping("/restTemplate/error")
+    public String getErrorRestTemplate() {
+        return restTemplateDemoAdaptor.getError();
+    }
 }
