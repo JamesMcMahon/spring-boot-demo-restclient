@@ -9,7 +9,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 
-@Service("resttemplate")
+@Service
 public class RestTemplateDemoHttpClient implements DemoHttpClient {
 
     private final RestTemplate restTemplate;

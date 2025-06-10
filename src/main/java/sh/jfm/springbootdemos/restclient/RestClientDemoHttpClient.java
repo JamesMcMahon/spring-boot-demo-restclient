@@ -7,7 +7,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 
-@Service("restclient")
+@Service
 public class RestClientDemoHttpClient implements DemoHttpClient {
 
     private final RestClient restClient;

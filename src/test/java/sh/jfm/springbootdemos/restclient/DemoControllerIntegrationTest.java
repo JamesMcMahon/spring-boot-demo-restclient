@@ -3,6 +3,8 @@ package sh.jfm.springbootdemos.restclient;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
@@ -38,23 +40,12 @@ class DemoControllerIntegrationTest {
         RestAssured.port = port;
     }
 
-    @Test
-    void getHello_errorsIfClientNotKnown() {
+    @ParameterizedTest
+    @ValueSource(strings = {"/restTemplate", "/restClient"})
+    void getHello_errorsIfMissingName(String path) {
         given()
-                .queryParam("client", "unknown")
-                .queryParam("name", "test")
                 .when()
-                .get("/demo/hello")
-                .then()
-                .statusCode(HttpStatus.BAD_REQUEST.value());
-    }
-
-    @Test
-    void getHello_errorsIfMissingName() {
-        given()
-                .queryParam("client", "resttemplate")
-                .when()
-                .get("/demo/hello")
+                .get("%s/hello".formatted(path))
                 .then()
                 .statusCode(HttpStatus.BAD_REQUEST.value());
     }
@@ -62,10 +53,9 @@ class DemoControllerIntegrationTest {
     @Test
     void getHello_restTemplate_returnsHello() {
         given()
-                .queryParam("client", "resttemplate")
                 .queryParam("name", "RestTemplate")
                 .when()
-                .get("/demo/hello")
+                .get("/restTemplate/hello")
                 .then()
                 .statusCode(HttpStatus.OK.value())
                 .body(containsString("Hello RestTemplate!"));
@@ -74,10 +64,9 @@ class DemoControllerIntegrationTest {
     @Test
     void getHello_restClient_returnsHello() {
         given()
-                .queryParam("client", "restclient")
                 .queryParam("name", "RestClient")
                 .when()
-                .get("/demo/hello")
+                .get("/restClient/hello")
                 .then()
                 .statusCode(HttpStatus.OK.value())
                 .body(containsString("Hello RestClient!"));
