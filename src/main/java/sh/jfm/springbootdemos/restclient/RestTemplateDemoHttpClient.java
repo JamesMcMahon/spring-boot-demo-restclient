@@ -29,12 +29,13 @@ public class RestTemplateDemoHttpClient implements DemoHttpClient {
                 .queryParam("name", name)
                 .build(true)
                 .toUri();
-        return restTemplate.exchange(
+        String responseName = restTemplate.exchange(
                         uri,
                         HttpMethod.GET,
                         null,
                         HttpBinGetResponse.class
                 ).getBody()
                 .args().name();
+        return "Hello %s!".formatted(responseName);
     }
 }

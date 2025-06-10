@@ -25,10 +25,11 @@ public class RestClientDemoHttpClient implements DemoHttpClient {
                 .queryParam("name", name)
                 .build(true)
                 .toUri();
-        return restClient.get()
+        String responseName = restClient.get()
                 .uri(uri)
                 .retrieve()
                 .body(HttpBinGetResponse.class)
                 .args().name();
+        return "Hello %s!".formatted(responseName);
     }
 }

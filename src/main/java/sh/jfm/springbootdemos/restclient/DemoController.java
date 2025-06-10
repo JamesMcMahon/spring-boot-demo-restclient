@@ -27,6 +27,6 @@ public class DemoController {
         if (demoHttpClient == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "unsupported client");
         }
-        return "Hello %s!".formatted(demoHttpClient.getHello(name));
+        return demoHttpClient.getHello(name);
     }
 }
