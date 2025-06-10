@@ -6,23 +6,23 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class DemoServiceBeanConfig {
+public class DemoAdaptorBeanConfig {
 
     @Bean
     @Qualifier("restClientDemoService")
-    public DemoService restClientDemoService(
+    public DemoAdaptor restClientDemoService(
             @Qualifier("restClientHttpbinClient") HttpBinClient client,
             @Value("${httpbin.base-url}") String baseUrl
     ) {
-        return new DemoService(client, baseUrl);
+        return new DemoAdaptor(client, baseUrl);
     }
 
     @Bean
     @Qualifier("restTemplateDemoService")
-    public DemoService restTemplateDemoService(
+    public DemoAdaptor restTemplateDemoService(
             @Qualifier("restTemplateHttpbinClient") HttpBinClient client,
             @Value("${httpbin.base-url}") String baseUrl
     ) {
-        return new DemoService(client, baseUrl);
+        return new DemoAdaptor(client, baseUrl);
     }
 }

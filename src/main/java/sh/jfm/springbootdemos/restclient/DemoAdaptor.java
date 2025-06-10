@@ -4,11 +4,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 
-public class DemoService {
+public class DemoAdaptor {
     private final HttpBinClient client;
     private final String baseUrl;
 
-    public DemoService(HttpBinClient client, String baseUrl) {
+    public DemoAdaptor(HttpBinClient client, String baseUrl) {
         this.client = client;
         this.baseUrl = baseUrl;
     }

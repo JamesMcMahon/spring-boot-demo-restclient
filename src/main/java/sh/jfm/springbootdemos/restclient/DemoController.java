@@ -8,24 +8,24 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class DemoController {
 
-    private final DemoService restClientDemoService;
-    private final DemoService restTemplateDemoService;
+    private final DemoAdaptor restClientDemoAdaptor;
+    private final DemoAdaptor restTemplateDemoAdaptor;
 
     public DemoController(
-            @Qualifier("restClientDemoService") DemoService restClientDemoService,
-            @Qualifier("restTemplateDemoService") DemoService restTemplateDemoService
+            @Qualifier("restClientDemoService") DemoAdaptor restClientDemoAdaptor,
+            @Qualifier("restTemplateDemoService") DemoAdaptor restTemplateDemoAdaptor
     ) {
-        this.restClientDemoService = restClientDemoService;
-        this.restTemplateDemoService = restTemplateDemoService;
+        this.restClientDemoAdaptor = restClientDemoAdaptor;
+        this.restTemplateDemoAdaptor = restTemplateDemoAdaptor;
     }
 
     @GetMapping("/restClient/hello")
     public String getHelloRestClient(@RequestParam String name) {
-        return restClientDemoService.getHello(name);
+        return restClientDemoAdaptor.getHello(name);
     }
 
     @GetMapping("/restTemplate/hello")
     public String getHelloRestTemplate(@RequestParam String name) {
-        return restTemplateDemoService.getHello(name);
+        return restTemplateDemoAdaptor.getHello(name);
     }
 }
