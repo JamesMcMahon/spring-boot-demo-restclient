@@ -16,6 +16,16 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
+/// Integration tests for the DemoController using [TestContainers](https://testcontainers.com/) and [REST-Assured](https://rest-assured.io/).
+/// This test suite verifies the behavior of both [RestTemplate](https://docs.spring.io/spring-framework/reference/integration/rest-clients.html#rest-resttemplate)
+///  and [RestClient](https://docs.spring.io/spring-framework/reference/integration/rest-clients.html#rest-restclient) implementations
+/// by testing against a containerized [HTTPBin](https://httpbin.org/) instance.
+///
+/// The test class uses:
+/// - Spring Boot Test with random port allocation
+/// - TestContainers for managing the HTTPBin container
+/// - REST Assured for HTTP request testing
+/// - Parameterized tests to verify both REST implementations
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Testcontainers
 class DemoControllerIntegrationTest {

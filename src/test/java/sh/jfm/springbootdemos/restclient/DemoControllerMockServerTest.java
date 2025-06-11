@@ -20,6 +20,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/// Mock tests for failure scenarios that are challenging to replicate with a real server
 @WebMvcTest(DemoController.class)
 @Import({RestClientHttpBinClient.class, RestTemplateHttpBinClient.class})
 @EnableWireMock
