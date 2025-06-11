@@ -4,6 +4,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+/// Exposes identical routes backed by either
+/// [RestClient](https://docs.spring.io/spring-framework/reference/integration/rest-clients.html#rest-restclient)
+/// (/restClient/) or
+/// [RestTemplate](https://docs.spring.io/spring-framework/reference/integration/rest-clients.html#rest-resttemplate)
+/// (/restTemplate/) so callers can observe behavior differences.
 @RestController
 public class DemoController {
 

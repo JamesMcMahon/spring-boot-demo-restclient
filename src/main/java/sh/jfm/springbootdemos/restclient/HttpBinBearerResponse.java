@@ -1,7 +1,6 @@
 package sh.jfm.springbootdemos.restclient;
 
-/// Response payload for httpbin / bearer endpoint.
-///
-/// [HttpBin docs](https://httpbin.org/#/Auth/get_bearer)
+/// Response for [HTTPBin GET `/bearer`](https://httpbin.org/#/Auth/get_bearer)
+/// – echoes authentication outcome and token.
 public record HttpBinBearerResponse(boolean authenticated, String token) {
 }

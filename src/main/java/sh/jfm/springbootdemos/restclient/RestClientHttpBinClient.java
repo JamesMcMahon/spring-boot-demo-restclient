@@ -9,12 +9,18 @@ import org.springframework.web.client.RestClientResponseException;
 
 import java.net.URI;
 
+/// [HTTPBin](https://httpbin.org/) implementation based on Spring 6
+/// [RestClient](https://docs.spring.io/spring-framework/reference/integration/rest-clients.html#rest-restclient).
+/// RestClient is immutable and thread-safe – build once and reuse.
+/// Its fluent DSL lets us specify, execute and decode the request in one chain.
+/// Compare with [RestTemplateHttpBinClient](RestTemplateHttpBinClient.java).
 @Component("restClientHttpBinClient")
 public class RestClientHttpBinClient implements HttpBinClient {
 
     private final RestClient restClient;
 
     public RestClientHttpBinClient(RestClient.Builder builder) {
+        // Build a single immutable RestClient instance – safe for concurrent reuse
         this.restClient = builder.build();
     }
 
@@ -28,6 +34,7 @@ public class RestClientHttpBinClient implements HttpBinClient {
 
     @Override
     public void getError(URI uri) {
+        // 500 is expected from HTTPBin /status/500 – suppress default error handling
         restClient.get()
                 .uri(uri)
                 .retrieve()

@@ -4,6 +4,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 
+/// Converts raw HTTPBin interactions into domain concerns and hides the HTTP client choice
+/// from controllers, keeping the web layer focussed on HTTP inbound concerns only.
 public class DemoAdaptor {
     private final HttpBinClient client;
     private final String baseUrl;

@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class DemoAdaptorBeanConfig {
 
+    /// [RestClient](https://docs.spring.io/spring-framework/reference/integration/rest-clients.html#rest-restclient) flavor
     @Bean
     @Qualifier("restClientDemoAdaptor")
     public DemoAdaptor restClientDemoAdaptor(
@@ -17,6 +18,7 @@ public class DemoAdaptorBeanConfig {
         return new DemoAdaptor(client, baseUrl);
     }
 
+    /// [RestTemplate](https://docs.spring.io/spring-framework/reference/integration/rest-clients.html#rest-resttemplate) flavor
     @Bean
     @Qualifier("restTemplateDemoAdaptor")
     public DemoAdaptor restTemplateDemoAdaptor(

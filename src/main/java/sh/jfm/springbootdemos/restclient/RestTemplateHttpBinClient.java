@@ -12,6 +12,11 @@ import org.springframework.web.client.RestTemplate;
 import java.io.IOException;
 import java.net.URI;
 
+/// [HTTPBin](https://httpbin.org/) implementation using legacy
+/// [RestTemplate](https://docs.spring.io/spring-framework/reference/integration/rest-clients.html#rest-resttemplate).
+/// RestTemplate is still supported but in maintenance mode; new code should
+/// migrate to [RestClient](https://docs.spring.io/spring-framework/reference/integration/rest-clients.html#rest-restclient).
+/// This class exists purely for comparison.
 @Component("restTemplateHttpBinClient")
 public class RestTemplateHttpBinClient implements HttpBinClient {
 
@@ -37,6 +42,7 @@ public class RestTemplateHttpBinClient implements HttpBinClient {
     public void getError(URI uri) {
         // create a specific RestTemplate for our error handler to avoid applying to ALL calls in the future
         RestTemplate localRestTemplate = builder.build();
+        // Custom handler: treat 500 as success so the demo can handle it manually
         localRestTemplate.setErrorHandler(new ResponseErrorHandler() {
             @SuppressWarnings("NullableProblems")
             @Override
