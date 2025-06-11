@@ -38,11 +38,11 @@ public class RestClientHttpBinClient implements HttpBinClient {
         restClient.get()
                 .uri(uri)
                 .retrieve()
-                .onStatus(status -> status.value() == 500,
+                .onStatus(status -> status.isSameCodeAs(HttpStatus.INTERNAL_SERVER_ERROR),
                         (_, _) -> {
                             // Do nothing for 500 errors - allow them to pass through without throwing an exception
                         })
-                .onStatus(status -> status.value() != 500,
+                .onStatus(status -> !status.isSameCodeAs(HttpStatus.INTERNAL_SERVER_ERROR),
                         (_, response) -> {
                             // All other status codes are unexpected for this error scenario should throw an exception
                             throw new RestClientResponseException(

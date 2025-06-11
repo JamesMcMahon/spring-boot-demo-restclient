@@ -48,7 +48,7 @@ public class RestTemplateHttpBinClient implements HttpBinClient {
             @Override
             public boolean hasError(ClientHttpResponse response) throws IOException {
                 // 500 errors are expected for this error scenario should not throw an exception
-                return response.getStatusCode() != HttpStatus.INTERNAL_SERVER_ERROR;
+                return !response.getStatusCode().isSameCodeAs(HttpStatus.INTERNAL_SERVER_ERROR);
             }
 
             @SuppressWarnings("NullableProblems")
