@@ -30,6 +30,7 @@ import static org.hamcrest.Matchers.equalTo;
 @Testcontainers
 class DemoControllerIntegrationTest {
 
+    @SuppressWarnings("resource")
     @Container
     static GenericContainer<?> httpbin =
             new GenericContainer<>("kennethreitz/httpbin:latest")
