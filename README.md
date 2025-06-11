@@ -4,8 +4,8 @@ This small Spring Boot app shows the same HTTP calls written twice — once with
 modern [RestClient](https://docs.spring.io/spring-framework/reference/integration/rest-clients.html#rest-restclient) API
 and once with the
 classic [RestTemplate](https://docs.spring.io/spring-framework/reference/integration/rest-clients.html#rest-resttemplate).  
-Both versions hit the public echo service [HTTPBin](https://httpbin.org/)  
-(`/get`, `/post`, `/bearer`, `/status/500`).
+Both versions talk to a local [HTTPBin](https://httpbin.org/) instance that Docker Compose
+starts for you.
 
 Jump straight to the two implementation classes and compare them line-by-line:
 
@@ -14,7 +14,17 @@ Jump straight to the two implementation classes and compare them line-by-line:
 
 Everything else (controller, adaptor, DTOs) only exists to make the app runnable.
 
+## Requirements
+
+Docker (Docker Engine / Docker Desktop) must be installed and running.  
+When you start the Spring Boot application, the `compose.yaml` file is picked up
+automatically by Spring Boot’s Docker-Compose integration and the supporting
+`httpbin` container is started for you.
+
 ## Run the app
+
+The command below launches both the Spring Boot application **and** the Docker
+Compose services in one step:
 
 ```bash
 ./mvnw spring-boot:run
