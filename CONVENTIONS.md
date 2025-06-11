@@ -8,6 +8,7 @@
 - Use httpbin (https://httpbin.org/) for simulating an external HTTP service that RestClient and RestTemplate talk to.
 - Always test new lines of code, any conditional should be covered under test. For this codebase, focus on high-level
   tests.
+- Avoid mocked tests unless you need HttpBin to perform in a very specific unsupported way.
 - Using TDD conventions, write and run tests first to ensure that newly created tests can fail.
 - Using TDD conventions, only write one test at a time and then write only the code needed for that test to pass. Do not
   write more code than needed to pass a test.
