@@ -2,7 +2,6 @@ package sh.jfm.springbootdemos.restclient;
 
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -50,67 +49,37 @@ class DemoControllerIntegrationTest {
                 .statusCode(HttpStatus.BAD_REQUEST.value());
     }
 
-    @Test
-    void getHello_restTemplate_returnsHello() {
+    @ParameterizedTest
+    @ValueSource(strings = {"/restTemplate", "/restClient"})
+    void getHello_returnsHello(String path) {
         given()
-                .queryParam("name", "RestTemplate")
+                .queryParam("name", "Test")
                 .when()
-                .get("/restTemplate/hello")
+                .get("%s/hello".formatted(path))
                 .then()
                 .statusCode(HttpStatus.OK.value())
-                .body(equalTo("Hello RestTemplate!"));
+                .body(equalTo("Hello Test!"));
     }
 
-    @Test
-    void getHello_restClient_returnsHello() {
-        given()
-                .queryParam("name", "RestClient")
-                .when()
-                .get("/restClient/hello")
-                .then()
-                .statusCode(HttpStatus.OK.value())
-                .body(equalTo("Hello RestClient!"));
-    }
-
-    @Test
-    void getError_restTemplate_returnsHandled() {
+    @ParameterizedTest
+    @ValueSource(strings = {"/restTemplate", "/restClient"})
+    void getError_returnsHandled(String path) {
         given()
                 .when()
-                .get("/restTemplate/error")
+                .get("%s/error".formatted(path))
                 .then()
                 .statusCode(HttpStatus.OK.value())
                 .body(equalTo("Error Handled!"));
     }
 
-    @Test
-    void getError_restClient_returnsHandled() {
-        given()
-                .when()
-                .get("/restClient/error")
-                .then()
-                .statusCode(HttpStatus.OK.value())
-                .body(equalTo("Error Handled!"));
-    }
-
-    @Test
-    void post_restTemplate_returnsPosted() {
+    @ParameterizedTest
+    @ValueSource(strings = {"/restTemplate", "/restClient"})
+    void post_returnsPosted(String path) {
         given()
                 .body("{\"message\":\"Test Message\"}")
                 .contentType("application/json")
                 .when()
-                .post("/restTemplate/post")
-                .then()
-                .statusCode(HttpStatus.OK.value())
-                .body(equalTo("Posted Test Message!"));
-    }
-
-    @Test
-    void post_restClient_returnsPosted() {
-        given()
-                .body("{\"message\":\"Test Message\"}")
-                .contentType("application/json")
-                .when()
-                .post("/restClient/post")
+                .post("%s/post".formatted(path))
                 .then()
                 .statusCode(HttpStatus.OK.value())
                 .body(equalTo("Posted Test Message!"));
