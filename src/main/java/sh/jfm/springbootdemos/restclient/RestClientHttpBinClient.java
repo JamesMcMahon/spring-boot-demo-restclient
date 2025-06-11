@@ -1,5 +1,7 @@
 package sh.jfm.springbootdemos.restclient;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
@@ -46,6 +48,18 @@ public class RestClientHttpBinClient implements HttpBinClient {
                             );
                         })
                 .toBodilessEntity();
+    }
+
+    @Override
+    public HttpBinBearerResponse getWithToken(URI uri, String token) {
+        return restClient.get()
+                .uri(uri)
+                .header(HttpHeaders.AUTHORIZATION, token)
+                .retrieve()
+                .onStatus(status -> status.isSameCodeAs(HttpStatus.UNAUTHORIZED), (_, _) -> {
+                    throw new UnauthorizedException();
+                })
+                .toEntity(HttpBinBearerResponse.class).getBody();
     }
 
     @Override

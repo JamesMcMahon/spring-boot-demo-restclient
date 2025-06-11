@@ -30,6 +30,15 @@ public class DemoAdaptor {
         return "Error Handled!";
     }
 
+    public String getWithAuth(boolean fail) {
+        String token = fail ? "this token will fail" : "Bearer fake token";
+        URI uri = UriComponentsBuilder.fromUriString(baseUrl + "/bearer")
+                .build(true)
+                .toUri();
+        String echoedToken = client.getWithToken(uri, token).token();
+        return "Authenticated %s!".formatted(echoedToken);
+    }
+
     public String postMessage(ExamplePostRequest request) {
         URI uri = UriComponentsBuilder.fromUriString(baseUrl + "/post")
                 .build(true)

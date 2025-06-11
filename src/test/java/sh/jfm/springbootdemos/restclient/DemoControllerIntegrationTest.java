@@ -84,4 +84,26 @@ class DemoControllerIntegrationTest {
                 .statusCode(HttpStatus.OK.value())
                 .body(equalTo("Posted Test Message!"));
     }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"/restTemplate", "/restClient"})
+    void getAuth_returnsAuthenticated(String path) {
+        given()
+                .when()
+                .get("%s/auth".formatted(path))
+                .then()
+                .statusCode(HttpStatus.OK.value())
+                .body(equalTo("Authenticated fake token!"));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"/restTemplate", "/restClient"})
+    void getAuth_fail_returnsHandled(String path) {
+        given()
+                .when()
+                .get("%s/auth?fail".formatted(path))
+                .then()
+                .statusCode(HttpStatus.UNAUTHORIZED.value())
+                .body(equalTo("Authentication Error Handled!"));
+    }
 }

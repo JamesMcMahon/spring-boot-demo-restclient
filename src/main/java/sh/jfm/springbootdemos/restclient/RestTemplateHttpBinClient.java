@@ -4,6 +4,7 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.*;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.DefaultResponseErrorHandler;
 import org.springframework.web.client.ResponseErrorHandler;
 import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
@@ -58,6 +59,27 @@ public class RestTemplateHttpBinClient implements HttpBinClient {
             }
         });
         localRestTemplate.getForEntity(uri, Void.class);
+    }
+
+    @Override
+    public HttpBinBearerResponse getWithToken(URI uri, String token) {
+        // create local RestTemplate so only this call gets the special 401 handling
+        RestTemplate local = builder.build();
+        local.setErrorHandler(new DefaultResponseErrorHandler() {
+            @SuppressWarnings("NullableProblems")
+            @Override
+            public void handleError(URI url, HttpMethod method, ClientHttpResponse response) throws IOException {
+                if (response.getStatusCode().isSameCodeAs(HttpStatus.UNAUTHORIZED)) {
+                    throw new UnauthorizedException();
+                }
+                super.handleError(url, method, response);
+            }
+        });
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(HttpHeaders.AUTHORIZATION, token);
+        HttpEntity<Void> entity = new HttpEntity<>(headers);
+        return local.exchange(uri, HttpMethod.GET, entity, HttpBinBearerResponse.class).getBody();
     }
 
     @Override

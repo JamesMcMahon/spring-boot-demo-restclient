@@ -7,5 +7,7 @@ public interface HttpBinClient {
 
     void getError(URI uri);
 
+    HttpBinBearerResponse getWithToken(URI uri, String token);
+
     HttpBinPostResponse postMessage(URI uri, ExamplePostRequest body);
 }

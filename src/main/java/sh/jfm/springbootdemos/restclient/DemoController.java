@@ -1,10 +1,17 @@
 package sh.jfm.springbootdemos.restclient;
 
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class DemoController {
+
+    @ExceptionHandler(UnauthorizedException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    private static String handleUnauthorizedException() {
+        return "Authentication Error Handled!";
+    }
 
     private final DemoAdaptor restClientDemoAdaptor;
     private final DemoAdaptor restTemplateDemoAdaptor;
@@ -45,5 +52,15 @@ public class DemoController {
     @PostMapping("/restTemplate/post")
     public String postRestTemplate(@RequestBody ExamplePostRequest body) {
         return restTemplateDemoAdaptor.postMessage(body);
+    }
+
+    @GetMapping("/restClient/auth")
+    public String getAuthRestClient(@RequestParam(name = "fail", required = false) String fail) {
+        return restClientDemoAdaptor.getWithAuth(fail != null);
+    }
+
+    @GetMapping("/restTemplate/auth")
+    public String getAuthRestTemplate(@RequestParam(name = "fail", required = false) String fail) {
+        return restTemplateDemoAdaptor.getWithAuth(fail != null);
     }
 }
