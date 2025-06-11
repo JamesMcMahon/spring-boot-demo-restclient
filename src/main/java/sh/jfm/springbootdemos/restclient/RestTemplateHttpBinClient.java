@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import java.io.IOException;
 import java.net.URI;
 
-@Component("restTemplateHttpbinClient")
+@Component("restTemplateHttpBinClient")
 public class RestTemplateHttpBinClient implements HttpBinClient {
 
     private final RestTemplateBuilder builder;

@@ -11,7 +11,7 @@ public class DemoAdaptorBeanConfig {
     @Bean
     @Qualifier("restClientDemoAdaptor")
     public DemoAdaptor restClientDemoAdaptor(
-            @Qualifier("restClientHttpbinClient") HttpBinClient client,
+            @Qualifier("restClientHttpBinClient") HttpBinClient client,
             @Value("${httpbin.base-url}") String baseUrl
     ) {
         return new DemoAdaptor(client, baseUrl);
@@ -20,7 +20,7 @@ public class DemoAdaptorBeanConfig {
     @Bean
     @Qualifier("restTemplateDemoAdaptor")
     public DemoAdaptor restTemplateDemoAdaptor(
-            @Qualifier("restTemplateHttpbinClient") HttpBinClient client,
+            @Qualifier("restTemplateHttpBinClient") HttpBinClient client,
             @Value("${httpbin.base-url}") String baseUrl
     ) {
         return new DemoAdaptor(client, baseUrl);

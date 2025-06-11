@@ -9,7 +9,7 @@ import org.springframework.web.client.RestClientResponseException;
 
 import java.net.URI;
 
-@Component("restClientHttpbinClient")
+@Component("restClientHttpBinClient")
 public class RestClientHttpBinClient implements HttpBinClient {
 
     private final RestClient restClient;
