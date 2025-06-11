@@ -29,4 +29,12 @@ public class DemoAdaptor {
         client.getError(uri);
         return "Error Handled!";
     }
+
+    public String postMessage(ExamplePostRequest request) {
+        URI uri = UriComponentsBuilder.fromUriString(baseUrl + "/post")
+                .build(true)
+                .toUri();
+        String echoed = client.postMessage(uri, request).json().message();
+        return "Posted %s!".formatted(echoed);
+    }
 }

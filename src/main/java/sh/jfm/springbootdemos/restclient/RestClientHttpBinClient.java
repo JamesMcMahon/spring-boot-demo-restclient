@@ -1,5 +1,6 @@
 package sh.jfm.springbootdemos.restclient;
 
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientResponseException;
@@ -45,5 +46,15 @@ public class RestClientHttpBinClient implements HttpBinClient {
                             );
                         })
                 .toBodilessEntity();
+    }
+
+    @Override
+    public HttpBinPostResponse postMessage(URI uri, ExamplePostRequest body) {
+        return restClient.post()
+                .uri(uri)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(body)
+                .retrieve()
+                .body(HttpBinPostResponse.class);
     }
 }

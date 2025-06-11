@@ -1,8 +1,7 @@
 package sh.jfm.springbootdemos.restclient;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.*;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.ResponseErrorHandler;
@@ -11,7 +10,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.net.URI;
-
 
 @Component("restTemplateHttpbinClient")
 public class RestTemplateHttpBinClient implements HttpBinClient {
@@ -60,5 +58,19 @@ public class RestTemplateHttpBinClient implements HttpBinClient {
             }
         });
         localRestTemplate.getForEntity(uri, Void.class);
+    }
+
+    @Override
+    public HttpBinPostResponse postMessage(URI uri, ExamplePostRequest body) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<ExamplePostRequest> entity = new HttpEntity<>(body, headers);
+
+        return restTemplate.exchange(
+                uri,
+                HttpMethod.POST,
+                entity,
+                HttpBinPostResponse.class
+        ).getBody();
     }
 }

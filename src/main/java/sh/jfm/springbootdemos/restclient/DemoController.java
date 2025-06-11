@@ -1,9 +1,7 @@
 package sh.jfm.springbootdemos.restclient;
 
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class DemoController {
@@ -37,5 +35,15 @@ public class DemoController {
     @GetMapping("/restTemplate/error")
     public String getErrorRestTemplate() {
         return restTemplateDemoAdaptor.getError();
+    }
+
+    @PostMapping("/restClient/post")
+    public String postRestClient(@RequestBody ExamplePostRequest body) {
+        return restClientDemoAdaptor.postMessage(body);
+    }
+
+    @PostMapping("/restTemplate/post")
+    public String postRestTemplate(@RequestBody ExamplePostRequest body) {
+        return restTemplateDemoAdaptor.postMessage(body);
     }
 }

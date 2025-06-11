@@ -6,4 +6,6 @@ public interface HttpBinClient {
     HttpBinGetResponse getHello(URI uri);
 
     void getError(URI uri);
+
+    HttpBinPostResponse postMessage(URI uri, ExamplePostRequest body);
 }

@@ -91,4 +91,28 @@ class DemoControllerIntegrationTest {
                 .statusCode(HttpStatus.OK.value())
                 .body(equalTo("Error Handled!"));
     }
+
+    @Test
+    void post_restTemplate_returnsPosted() {
+        given()
+                .body("{\"message\":\"Test Message\"}")
+                .contentType("application/json")
+                .when()
+                .post("/restTemplate/post")
+                .then()
+                .statusCode(HttpStatus.OK.value())
+                .body(equalTo("Posted Test Message!"));
+    }
+
+    @Test
+    void post_restClient_returnsPosted() {
+        given()
+                .body("{\"message\":\"Test Message\"}")
+                .contentType("application/json")
+                .when()
+                .post("/restClient/post")
+                .then()
+                .statusCode(HttpStatus.OK.value())
+                .body(equalTo("Posted Test Message!"));
+    }
 }
