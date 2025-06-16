@@ -58,6 +58,16 @@ public class RestClientHttpBinClient implements HttpBinClient {
     }
 
     @Override
+    public HttpBinPostResponse postMessage(URI uri, ExamplePostRequest body) {
+        return restClient.post()
+                .uri(uri)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(body)
+                .retrieve()
+                .body(HttpBinPostResponse.class);
+    }
+
+    @Override
     public HttpBinBearerResponse getWithToken(URI uri, String token) {
         return restClient.get()
                 .uri(uri)
@@ -67,15 +77,5 @@ public class RestClientHttpBinClient implements HttpBinClient {
                     throw new UnauthorizedException();
                 })
                 .toEntity(HttpBinBearerResponse.class).getBody();
-    }
-
-    @Override
-    public HttpBinPostResponse postMessage(URI uri, ExamplePostRequest body) {
-        return restClient.post()
-                .uri(uri)
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(body)
-                .retrieve()
-                .body(HttpBinPostResponse.class);
     }
 }

@@ -18,9 +18,9 @@ public interface HttpBinClient {
     /// GET /status/500 – must NOT throw; 500 is the expected happy-path here.
     void getError(URI uri);
 
-    /// GET /bearer – translate HTTP 401 into [UnauthorizedException](UnauthorizedException.java).
-    HttpBinBearerResponse getWithToken(URI uri, String token);
-
     /// POST /post – JSON body is echoed under `.json`.
     HttpBinPostResponse postMessage(URI uri, ExamplePostRequest body);
+
+    /// GET /bearer – translate HTTP 401 into [UnauthorizedException](UnauthorizedException.java).
+    HttpBinBearerResponse getWithToken(URI uri, String token);
 }

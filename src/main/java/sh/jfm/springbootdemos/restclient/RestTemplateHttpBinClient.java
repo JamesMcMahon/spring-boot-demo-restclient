@@ -68,6 +68,20 @@ public class RestTemplateHttpBinClient implements HttpBinClient {
     }
 
     @Override
+    public HttpBinPostResponse postMessage(URI uri, ExamplePostRequest body) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<ExamplePostRequest> entity = new HttpEntity<>(body, headers);
+
+        return restTemplate.exchange(
+                uri,
+                HttpMethod.POST,
+                entity,
+                HttpBinPostResponse.class
+        ).getBody();
+    }
+
+    @Override
     public HttpBinBearerResponse getWithToken(URI uri, String token) {
         // create local RestTemplate so only this call gets the special 401 handling
         RestTemplate local = builder.build();
@@ -86,19 +100,5 @@ public class RestTemplateHttpBinClient implements HttpBinClient {
         headers.set(HttpHeaders.AUTHORIZATION, token);
         HttpEntity<Void> entity = new HttpEntity<>(headers);
         return local.exchange(uri, HttpMethod.GET, entity, HttpBinBearerResponse.class).getBody();
-    }
-
-    @Override
-    public HttpBinPostResponse postMessage(URI uri, ExamplePostRequest body) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<ExamplePostRequest> entity = new HttpEntity<>(body, headers);
-
-        return restTemplate.exchange(
-                uri,
-                HttpMethod.POST,
-                entity,
-                HttpBinPostResponse.class
-        ).getBody();
     }
 }

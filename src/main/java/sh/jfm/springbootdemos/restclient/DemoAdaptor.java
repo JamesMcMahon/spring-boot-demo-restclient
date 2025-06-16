@@ -32,6 +32,14 @@ public class DemoAdaptor {
         return "Error Handled!";
     }
 
+    public String postMessage(ExamplePostRequest request) {
+        URI uri = UriComponentsBuilder.fromUriString(baseUrl + "/post")
+                .build(true)
+                .toUri();
+        String echoed = client.postMessage(uri, request).json().message();
+        return "Posted %s!".formatted(echoed);
+    }
+
     public String getWithAuth(boolean fail) {
         String token = fail ? "this token will fail" : "Bearer fake token";
         URI uri = UriComponentsBuilder.fromUriString(baseUrl + "/bearer")
@@ -39,13 +47,5 @@ public class DemoAdaptor {
                 .toUri();
         String echoedToken = client.getWithToken(uri, token).token();
         return "Authenticated %s!".formatted(echoedToken);
-    }
-
-    public String postMessage(ExamplePostRequest request) {
-        URI uri = UriComponentsBuilder.fromUriString(baseUrl + "/post")
-                .build(true)
-                .toUri();
-        String echoed = client.postMessage(uri, request).json().message();
-        return "Posted %s!".formatted(echoed);
     }
 }

@@ -55,6 +55,20 @@ curl http://localhost:8080/restClient/error
 curl http://localhost:8080/restTemplate/error
 ```
 
+### POST JSON
+
+```bash
+curl -X POST 'http://localhost:8080/restClient/post' \
+     -H 'Content-Type: application/json' \
+     -d '{"message":"Hi"}'
+```
+
+```bash
+curl -X POST 'http://localhost:8080/restTemplate/post' \
+     -H 'Content-Type: application/json' \
+     -d '{"message":"Hi"}'
+```
+
 ### Auth (success / failure)
 
 ```bash
@@ -71,20 +85,6 @@ curl http://localhost:8080/restTemplate/auth
 
 ```bash
 curl http://localhost:8080/restTemplate/auth?fail
-```
-
-### POST JSON
-
-```bash
-curl -X POST 'http://localhost:8080/restClient/post' \
-     -H 'Content-Type: application/json' \
-     -d '{"message":"Hi"}'
-```
-
-```bash
-curl -X POST 'http://localhost:8080/restTemplate/post' \
-     -H 'Content-Type: application/json' \
-     -d '{"message":"Hi"}'
 ```
 
 ## Tests
